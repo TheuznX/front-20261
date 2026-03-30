@@ -22,7 +22,7 @@ body {
     padding: 40px;
     width: 350px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%);
 }
 
 .logo {
@@ -59,7 +59,8 @@ input {
 }
 
 .erro {
-    color: #cc0000; 
+    
+    color: #c00; 
     font-size: 14px;
     display: block;
     margin-top: 5px;
