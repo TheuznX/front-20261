@@ -2,9 +2,14 @@ import './Header.css';
 
 function Header() {
   return (
-    <header className="header-container">
-      <div className="logo">Aluno Online</div>
-      <div className="user-info">Olá, Maria Clara</div>
+    <header className="header-principal">
+      <div className="logotipo">
+        <h1>Aluno Online</h1>
+      </div>
+      <div className="perfil-usuario">
+        <span>Matheus</span> 
+        <button className="botao-sair">Sair</button>
+      </div>
     </header>
   );
 }
