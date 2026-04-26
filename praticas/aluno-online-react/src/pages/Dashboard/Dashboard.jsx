@@ -1,13 +1,24 @@
-import './Dashboard.css';
+import Card from '../../components/Card/Card';
+import './Dashboard.css'; 
 
 function Dashboard() {
   return (
-    <div className="pagina-conteudo">
-      <h1>Bem-vinda, Maria Clara!</h1>
-      <div className="cards-resumo">
-        <div className="card"><h3>Notas</h3><p>Média Global: 8.5</p></div>
-        <div className="card"><h3>Faltas</h3><p>Total: 6</p></div>
-        <div className="card"><h3>Avisos</h3><p>2 novos requerimentos</p></div>
+    <div className="pagina-dashboard">
+      <h1>Portal do Aluno</h1>
+      
+      
+      <div className="dashboard-grid">
+        <Card titulo="Faltas">
+          <p>Você possui <strong>5</strong> faltas.</p>
+        </Card>
+        
+        <Card titulo="Notas">
+          <p>Sua média atual é <strong>8.5</strong>.</p>
+        </Card>
+        
+        <Card titulo="Avisos">
+          <p>Nenhum aviso pendente.</p>
+        </Card>
       </div>
     </div>
   );
