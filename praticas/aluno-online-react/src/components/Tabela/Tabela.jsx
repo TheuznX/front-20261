@@ -1,6 +1,4 @@
-import './Tabela.css';
-
-function Tabela({ cabecalho, children }) {
+function Tabela({ cabecalho, dados }) {
   return (
     <table className="tabela-estilizada">
       <thead>
@@ -10,9 +8,15 @@ function Tabela({ cabecalho, children }) {
           ))}
         </tr>
       </thead>
-      <tbody>{children}</tbody>
+      <tbody>
+        {dados.map((linha, index) => (
+          <tr key={index}>
+            {Object.values(linha).map((valor, idx) => (
+              <td key={idx}>{valor}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }
-
-export default Tabela;
