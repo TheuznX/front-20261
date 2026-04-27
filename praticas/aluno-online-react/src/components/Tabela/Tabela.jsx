@@ -1,4 +1,6 @@
-function Tabela({ cabecalho, dados }) {
+import './Tabela.css';
+
+function Tabela({ cabecalho = [], dados = [] }) {
   return (
     <table className="tabela-estilizada">
       <thead>
@@ -20,3 +22,5 @@ function Tabela({ cabecalho, dados }) {
     </table>
   );
 }
+
+export default Tabela;
