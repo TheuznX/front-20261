@@ -1,25 +1,30 @@
-.menu-lateral {
-    width: 200px;
-    background-color: #34495e;
-    height: calc(100vh - 60px);
-    position: fixed;
-    top: 60px;
-    padding-top: 20px;
-  }
-  
-  .menu-lateral ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .menu-lateral li {
-    padding: 15px 20px;
-    color: #bdc3c7;
-    cursor: pointer;
-    border-bottom: 1px solid #2c3e50;
-  }
-  
-  .menu-lateral li:hover {
-    background-color: #1abc9c;
-    color: white;
-  }
+.menu {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  gap: 15px;
+  border-bottom: 2px solid #e9ecef;
+  margin-bottom: 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.menu a:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+.menu a.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}

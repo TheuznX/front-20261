@@ -1,22 +1,15 @@
-import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
-import Sidebar from '../Sidebar/Sidebar';
-import './Layout.css';
+import { Outlet } from "react-router-dom";
+import Menu from "../Menu/Menu";
 
-function Layout({ children, nomeUsuario }) {
+const Layout = () => {
   return (
-    <div className="layout-geral">
-      <Header nomeUsuario={nomeUsuario} />
-      <div className="corpo-projeto">
-        <Sidebar>
-          <Menu />
-        </Sidebar>
-        <main className="conteudo-dinamico">
-          {children}
-        </main>
-      </div>
+    <div className="app-layout">
+      <Menu />
+      <main className="content">
+        <Outlet />
+      </main>
     </div>
   );
-}
+};
 
 export default Layout;
