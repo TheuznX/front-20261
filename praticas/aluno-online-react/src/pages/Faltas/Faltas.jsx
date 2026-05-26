@@ -45,26 +45,16 @@ export default function Faltas() {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Arial, sans-serif', backgroundColor: '#fff' }}>
-      
       <div style={{ width: '240px', borderRight: '1px solid #e0e0e0', padding: '30px 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', paddingLeft: '10px' }}>
           <span style={{ fontSize: '24px' }}>🎓</span>
           <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>Aluno Online</span>
         </div>
-        
         <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
           {['Dashboard', 'Notas', 'Faltas', 'Boletos', 'Requerimentos', 'Sair'].map((item) => (
             <li 
               key={item} 
-              style={{ 
-                padding: '12px 15px', 
-                color: item === 'Faltas' ? '#000' : '#666',
-                fontWeight: item === 'Faltas' ? 'bold' : 'normal',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px'
-              }}
+              style={{ padding: '12px 15px', color: item === 'Faltas' ? '#000' : '#666', fontWeight: item === 'Faltas' ? 'bold' : 'normal', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}
               onClick={() => navegarPara(item)}
             >
               <span style={{ fontSize: '8px' }}>●</span> {item}
@@ -72,23 +62,15 @@ export default function Faltas() {
           ))}
         </ul>
       </div>
-
       <div style={{ flex: 1, padding: '40px 60px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <h1 style={{ margin: 0, fontSize: '32px', fontWeight: 'bold', color: '#000' }}>Minhas Faltas</h1>
           <div style={{ width: '45px', height: '45px', backgroundColor: '#e0e0e0', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>👤</div>
         </div>
-
-        <h3 style={{ fontSize: '20px', fontWeight: '500', color: '#555', marginTop: '0', marginBottom: '40px' }}>
-          Histórico de Faltas por Semestre
-        </h3>
-
-        {historicoFaltas.map((semestre, sIdx) => (
+        <h3 style={{ fontSize: '20px', fontWeight: '500', color: '#555', marginTop: '0', marginBottom: '40px' }}>Histórico de Faltas por Semestre</h3>
+        {historicoFaltas.map((semestre) => (
           <div key={semestre.periodo} style={{ marginBottom: '45px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#000', marginBottom: '15px' }}>
-              {semestre.periodo}
-            </h2>
-            
+            <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#000', marginBottom: '15px' }}>{semestre.periodo}</h2>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid #ccc', textAlign: 'left' }}>
@@ -110,7 +92,6 @@ export default function Faltas() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }
