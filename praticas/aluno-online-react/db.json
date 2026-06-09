@@ -1,0 +1,18 @@
+{
+    "requerimentos": [
+      {
+        "id": "1",
+        "tipo": "Revisão de Menção",
+        "descricao": "Solicito a revisão detalhada da menção da avaliação P2.",
+        "dataRequerimento": "15/12/2025",
+        "situacao": "Indeferido"
+      },
+      {
+        "id": "2",
+        "tipo": "Dispensa de Disciplina",
+        "descricao": "Solicito dispensa por equivalência de carga horária externa.",
+        "dataRequerimento": "12/06/2025",
+        "situacao": "Indeferido"
+      }
+    ]
+  }
