@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { cadastrarRequerimento } from '../services/requerimentoService';
 
 export default function RequerimentoForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -9,9 +10,19 @@ export default function RequerimentoForm() {
   const dataAutomatica = new Date().toLocaleDateString('pt-BR');
 
   const onSubmit = (data) => {
-    console.log("Sucesso:", { ...data, dataRequerimento: dataAutomatica });
-    alert("Requerimento cadastrado com sucesso!");
-    navigate('/requerimentos');
+    const novoRequerimento = {
+      tipo: data.tipo,
+      descricao: data.descricao,
+      dataRequerimento: dataAutomatica,
+      situacao: 'Aguardando Análise'
+    };
+
+    cadastrarRequerimento(novoRequerimento)
+      .then(() => {
+        alert("Requerimento cadastrado com sucesso!");
+        navigate('/requerimentos');
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -48,7 +59,7 @@ export default function RequerimentoForm() {
           </label>
           <textarea
             {...register("descricao", { 
-              required: "Descrição é obrigatório",
+              required: "Descrição é obrigatória",
               minLength: { value: 10, message: "A descrição deve ter no mínimo 10 caracteres" }
             })}
             rows="5"

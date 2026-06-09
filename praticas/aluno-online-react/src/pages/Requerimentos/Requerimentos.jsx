@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { listarRequerimentos } from '../../services/requerimentoService';
 
 export default function Requerimentos() {
   const navigate = useNavigate();
   const location = useLocation();
   const isBaseRoute = location.pathname === '/requerimentos';
+  const [requerimentos, setRequerimentos] = useState([]);
 
-  const dadosTabela = [
-    { tipo: 'Revisão de Menção', data: '15/12/2025', situacao: 'Indeferido' },
-    { tipo: 'Dispensa de Disciplina', data: '12/06/2025', situacao: 'Indeferido' },
-    { tipo: 'Trancamento de Matrícula', data: '05/01/2024', situacao: 'Deferido' },
-    { tipo: 'Mudança de Turno', data: '10/10/2023', situacao: 'Deferido' },
-    { tipo: 'Renovação de Matrícula', data: '20/02/2023', situacao: 'Deferido' }
-  ];
+  useEffect(() => {
+    if (isBaseRoute) {
+      listarRequerimentos()
+        .then((dados) => setRequerimentos(dados))
+        .catch((err) => console.error(err));
+    }
+  }, [isBaseRoute]);
 
   const navegarPara = (item) => {
     const caminhos = {
@@ -78,16 +80,16 @@ export default function Requerimentos() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '2px solid #ccc', textAlign: 'left' }}>
-                  <th style={{ padding: '12px 8px', fontSize: '16px', color: '#333' }}>Tipo de Requerimento</th>
-                  <th style={{ padding: '12px 8px', fontSize: '16px', color: '#333' }}>Data de Solicitação</th>
-                  <th style={{ padding: '12px 8px', fontSize: '16px', color: '#333' }}>Situação</th>
+                  <th style={{ padding: '12px 8px', fontSize: '16px', color: '#333', width: '40%' }}>Tipo de Requerimento</th>
+                  <th style={{ padding: '12px 8px', fontSize: '16px', color: '#333', width: '30%' }}>Data de Solicitação</th>
+                  <th style={{ padding: '12px 8px', fontSize: '16px', color: '#333', width: '30%' }}>Situação</th>
                 </tr>
               </thead>
               <tbody>
-                {dadosTabela.map((req, index) => (
+                {requerimentos.map((req, index) => (
                   <tr key={index} style={{ borderBottom: '1px solid #e0e0e0' }}>
                     <td style={{ padding: '14px 8px', color: '#333', fontSize: '15px' }}>{req.tipo}</td>
-                    <td style={{ padding: '14px 8px', color: '#333', fontSize: '15px' }}>{req.data}</td>
+                    <td style={{ padding: '14px 8px', color: '#333', fontSize: '15px' }}>{req.dataRequerimento}</td>
                     <td style={{ padding: '14px 8px', color: '#333', fontSize: '15px' }}>{req.situacao}</td>
                   </tr>
                 ))}
