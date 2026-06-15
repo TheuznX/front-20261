@@ -1,4 +1,11 @@
 {
+  "usuarios": [
+    {
+      "id": "1",
+      "email": "aluno@iesb.br",
+      "senha": "123"
+    }
+  ],
   "requerimentos": [
     {
       "id": "1",
@@ -36,11 +43,11 @@
       "descricao": "Solicito renovação."
     },
     {
-      "tipo": "Revisão de Menção",
-      "descricao": "macccccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacoooooooooooooooooooo",
-      "dataRequerimento": "09/06/2026",
+      "tipo": "Dispensa de Disciplina",
+      "descricao": "dakopaakoadkoadkopakopdkopakopakopadkop",
+      "dataRequerimento": "15/06/2026",
       "situacao": "Aguardando Análise",
-      "id": "UyGnTSdbCKk"
+      "id": "cc2AsohbVNM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

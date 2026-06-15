@@ -1,47 +1,72 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
   const navigate = useNavigate();
+  const { logar } = useAuth();
 
-  const onSubmit = () => {
-    navigate('/dashboard');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setErro('');
+    
+    if (!email || !senha) {
+      setErro('Preencha todos os campos');
+      return;
+    }
+
+    const sucesso = await logar(email, senha);
+    
+    if (sucesso) {
+      navigate('/dashboard');
+    } else {
+      setErro('E-mail ou senha incorretos');
+    }
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'Arial, sans-serif', backgroundColor: '#fff' }}>
-      <div style={{ width: '340px', border: '1px solid #e0e0e0', padding: '40px 30px', borderRadius: '8px', backgroundColor: '#fff' }}>
-        <h2 style={{ fontSize: '26px', fontWeight: 'bold', color: '#000', marginBottom: '30px', textAlign: 'center' }}>Login - Aluno Online</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#fff', fontFamily: 'Arial, sans-serif' }}>
+      <div style={{ width: '100%', maxWidth: '400px', padding: '40px', border: '1px solid #e0e0e0', borderRadius: '8px', backgroundColor: '#fff' }}>
+        <h2 style={{ textAlign: 'center', fontSize: '28px', fontWeight: 'bold', color: '#000', marginBottom: '30px' }}>Login - Aluno Online</h2>
+        
+        <form onSubmit={handleLogin}>
           <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', fontSize: '15px', color: '#000', marginBottom: '8px', fontWeight: 'bold' }}>E-mail</label>
-            <input
-              type="text"
-              placeholder="Ex: m@gmail.com"
-              {...register("email", { 
-                required: "E-mail é obrigatório", 
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: "Insira um e-mail válido"
-                }
-              })}
-              style={{ width: '100%', padding: '8px 12px', fontSize: '16px', borderRadius: '4px', border: '1px solid #767676', boxSizing: 'border-box' }}
+            <label style={{ display: 'block', fontSize: '16px', fontWeight: 'bold', color: '#000', marginBottom: '8px' }}>E-mail</label>
+            <input 
+              type="email" 
+              placeholder="Ex: m@gmail.com" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ width: '100%', padding: '10px', fontSize: '15px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
             />
-            {errors.email && <p style={{ color: '#cc0000', fontSize: '14px', margin: '6px 0 0 0', fontWeight: '500' }}>{errors.email.message}</p>}
           </div>
-          <div style={{ marginBottom: '30px' }}>
-            <label style={{ display: 'block', fontSize: '15px', color: '#000', marginBottom: '8px', fontWeight: 'bold' }}>Senha</label>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              {...register("password", { required: "Senha é obrigatória" })}
-              style={{ width: '100%', padding: '8px 12px', fontSize: '16px', borderRadius: '4px', border: '1px solid #767676', boxSizing: 'border-box' }}
+
+          <div style={{ marginBottom: '25px' }}>
+            <label style={{ display: 'block', fontSize: '16px', fontWeight: 'bold', color: '#000', marginBottom: '8px' }}>Senha</label>
+            <input 
+              type="password" 
+              placeholder="Digite sua senha" 
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              style={{ width: '100%', padding: '10px', fontSize: '15px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' }}
             />
-            {errors.password && <p style={{ color: '#cc0000', fontSize: '14px', margin: '6px 0 0 0', fontWeight: '500' }}>{errors.password.message}</p>}
           </div>
-          <button type="submit" style={{ width: '100%', padding: '10px', fontSize: '16px', backgroundColor: '#efefef', color: '#000', border: '1px solid #767676', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>Entrar</button>
+
+          {erro && (
+            <p style={{ color: '#cc0000', fontSize: '14px', margin: '0 0 20px 0', textAlign: 'center', fontWeight: '500' }}>
+              {erro}
+            </p>
+          )}
+
+          <button 
+            type="submit" 
+            style={{ width: '100%', padding: '12px', fontSize: '16px', backgroundColor: '#fff', color: '#000', border: '1px solid #000', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            Entrar
+          </button>
         </form>
       </div>
     </div>
