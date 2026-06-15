@@ -1,32 +1,43 @@
-import { createContext, useState, useContext } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import React, { createContext, useState, useContext } from 'react';
+import { login as apiLogin, logout as apiLogout } from '../services/authService';
 
 const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
-  const [autenticado, setAutenticado] = useState(false);
-  const [usuario, setUsuario] = useState(null);
+export function AuthProvider({ children }) {
+  const [usuario, setUsuario] = useState(() => {
+    const saved = localStorage.getItem('usuario');
+    return saved ? JSON.parse(saved) : null;
+  });
+  const [token, setToken] = useState(() => localStorage.getItem('token'));
 
-  const login = (dadosUsuario) => {
-    setAutenticado(true);
-    setUsuario(dadosUsuario);
+  const logar = async (email, senha) => {
+    try {
+      const dados = await apiLogin(email, senha);
+      setUsuario(dados.usuario);
+      setToken(dados.token);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   };
 
-  const logout = () => {
-    setAutenticado(false);
+  const deslogar = () => {
+    apiLogout();
     setUsuario(null);
+    setToken(null);
   };
+
+  const estaLogado = !!token;
 
   return (
-    <AuthContext.Provider value={{ autenticado, usuario, login, logout }}>
+    <AuthContext.Provider value={{ usuario, token, logar, deslogar, estaLogado }}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
-  }
-  return context;
-};
+export function useAuth() {
+  return useContext(AuthContext);
+}
